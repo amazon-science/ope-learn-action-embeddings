@@ -3,6 +3,7 @@ import warnings
 from logging import getLogger
 from pathlib import Path
 from time import time
+from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
@@ -12,7 +13,7 @@ from pandas import DataFrame
 from sklearn.exceptions import ConvergenceWarning
 from torch.utils.data import DataLoader
 
-from experiments.utils.configs import OpeTrialConfig
+from experiments.utils.configs import SyntheticOpeTrialConfig
 
 from ..utils.ope import run_ope
 from ..utils.learn_embed import LearnEmbedLinear, TorchBanditDataset
@@ -28,12 +29,14 @@ logger = getLogger(__name__)
 
 
 class AbstractSyntheticJob(AbstractOpeJob):
-    @ abc.abstractmethod
-    def main(self, cfg: OpeTrialConfig):
+    @abc.abstractmethod
+    def main(self, cfg: SyntheticOpeTrialConfig):
         pass
 
     def run(self, cfg, hyperparam_name, hyperparam_list):
         logger.info(f"The current working directory is {Path().cwd()}")
+        if not cfg.s3_path.startswith("s3://"):
+            Path(cfg.s3_path).mkdir(parents=True, exist_ok=True)
         start_time = time()
 
         # log path

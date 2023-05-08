@@ -1,2 +1,2 @@
-BUCKET = "alster-science-experiments"
-ROLE = "sagemaker-execution-role"
+BUCKET = "ope-learn-action-embeddings"
+ROLE = "SageMakerUser"

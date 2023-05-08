@@ -74,10 +74,9 @@ class AbstractExperiment(ABC):
             hyperparameters=job_parameters,
             metric_definitions=[],
             enable_sagemaker_metrics=True,
-            source_dir="src/",
+            source_dir="./",
             max_run=5 * 24 * 60 * 60  # set the training limit to 5 days (maximum allowed time by default)
         )
-
         training_job_name = f"{experiment_name}-{trial_config.name}"
         trial_name = f"trial-{training_job_name}"
         estimator.fit(
@@ -126,6 +125,10 @@ class AbstractExperiment(ABC):
     def get_s3_path(self, experiment_name, trial_name=None) -> str:
         result = f"s3://{BUCKET}/experiments/experiment={experiment_name}"
         return result if not trial_name else result + f"/trial={trial_name}"
+    
+    def get_local_path(self, experiment_name, trial_name=None) -> str:
+        result = f"./results/{experiment_name}"
+        return result if not trial_name else result + f"/{trial_name}"
 
     def list_s3_files(self, experiment_name, trial_name) -> List[str]:
         objects = []
@@ -143,7 +146,7 @@ class AbstractExperiment(ABC):
         return [f"s3://{BUCKET}/{obj['Key']}" for obj in objects]
 
     def get_output_path(self, experiment_name, trial_name=None) -> str:
-        result = f"./log/{experiment_name}"
+        result = f"./results/{experiment_name}"
         return result if not trial_name else result + f"/{trial_name}"
 
     def get_job_config_parameter(self, trial: TrialConfig, experiment_name: str) -> dict:

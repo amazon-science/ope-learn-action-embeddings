@@ -39,7 +39,7 @@ class AbstractHpoExperiment(AbstractExperiment):
             hyperparameters=job_parameters,
             metric_definitions=[],
             enable_sagemaker_metrics=True,
-            source_dir="src/",
+            source_dir="./",
             max_run=5 * 24 * 60 * 60  # set the training limit to 5 days (maximum allowed time by default)
         )
 

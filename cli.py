@@ -25,11 +25,12 @@ def run(experiment_name: str, experiment_class: str):
 
 
 @cli.command()
-@click.option('--experiment_name', '-n', help='Please provide the experiment name you set when running the experiment')
+@click.option('--experiment_name', '-n', help='Please provide the experiment name you set when running the experiment', default=None)
 @click.option('--experiment_class', '-c', help='Please provide experiment class name eg. NActionExperiment')
-def output(experiment_name: str, experiment_class: str):
+@click.option('--local_path', '-d', help='If the results are stored locally, provide the directory location', default=None)
+def output(experiment_name: str, experiment_class: str, local_path: str):
     click.echo("Getting Experiment output on Sage maker Training Jobs.")
-    get_experiment_object(experiment_class).get_output(experiment_name)
+    get_experiment_object(experiment_class).get_output(experiment_name, local_path=local_path)
     click.echo("Output has finished successfully")
 
 

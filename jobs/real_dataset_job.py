@@ -2,6 +2,7 @@ import os
 from logging import getLogger
 from os.path import dirname
 from time import time
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -23,6 +24,8 @@ class RealDatasetJob(AbstractOpeJob):
         logger.info(cfg)
         logger.info(f"The current working directory is {os.getcwd()}")
         start_time = time()
+        if not cfg.s3_path.startswith("s3://"):
+            Path(cfg.s3_path).mkdir(parents=True, exist_ok=True)
 
         # configurations
         sample_size = cfg.sample_size
