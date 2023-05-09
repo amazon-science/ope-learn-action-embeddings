@@ -1,12 +1,12 @@
 # Learning Action Embeddings for Off-Policy Evaluation 
 
-This is the code repository that evaluates the proposed methods in the paper [Learning Action Embeddings for Off-Policy Evaluation](https://arxiv.org/abs/2305.03954).
+This repository contains code for evaluating the methods proposed in [Learning Action Embeddings for Off-Policy Evaluation](https://arxiv.org/abs/2305.03954).
 
 To get started, we recommend checking the [Example.ipynb](Example.ipynb) notebook as it clearly demonstrates benefits of the proposed method from Section 3 and implements everything in a few lines of code. To run the notebook, you only need `python 3` with standard machine learning libraries.
 
 To run the other synthetic and real-world experiments in the paper, you might need the AWS account as everything is implemented to run with AWS SageMaker. Depending on the training instance used, the experiments may run for a couple of hours/days.
 
-We also provide commands to run the experiments locally, although you might not have sufficient computing resources.
+We also provide commands to run the experiments locally (requires considerable computational resource).
 
 ## Setting up the environment
 The following are the steps to set up the environment. You can skip the first three steps if you want to run experiments locally.
@@ -101,8 +101,8 @@ This project is licensed under the Apache-2.0 License.
 
 ## Citation
 ```
-@misc{ciefLearningActionEmbeddings2023,
-  title = {Learning {{Action Embeddings}} for {{Off-Policy Evaluation}}},
+@misc{cief2023,
+  title = {Learning Action Embeddings for Off-Policy Evaluation},
   author = {Cief, Matej and Golebiowski, Jacek and Schmidt, Philipp and Abedjan, Ziawasch and Bekasov, Artur},
   year = {2023},
   month = may,
