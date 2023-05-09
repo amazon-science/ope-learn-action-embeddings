@@ -2,6 +2,7 @@ import os
 from functools import reduce
 from logging import getLogger
 from time import time
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -24,6 +25,8 @@ class OpeHpoJob(AbstractOpeJob):
         logger.info(cfg)
         logger.info(f"The current working directory is {os.getcwd()}")
         start_time = time()
+        if not cfg.s3_path.startswith("s3://"):
+            Path(cfg.s3_path).mkdir(parents=True, exist_ok=True)
 
         dataset = SyntheticBanditDatasetWithActionEmbeds(  
             n_actions=cfg.n_actions,

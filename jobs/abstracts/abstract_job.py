@@ -3,7 +3,7 @@ import argparse
 import dataclasses
 from abc import ABC, ABCMeta
 from logging import getLogger
-
+from types import SimpleNamespace
 
 from experiments.utils.configs import LearnedEmbedParams, LearnEmbedConfig, SyntheticOpeTrialConfig
 
@@ -26,15 +26,21 @@ class HandleOpeArgs(ABCMeta):
                 args, unknown = parser.parse_known_args()
                 logger.info(f"Uknown args: {unknown}")
 
-                cfg.embed_model_config = LearnEmbedConfig(**{
-                    **cfg.embed_model_config.__dict__,
-                    **dict([(key, value) for key, value in vars(args).items() if key in vars(LearnEmbedConfig()).keys()])
-                })
-                cfg.learned_embed_params = LearnedEmbedParams(**{
-                    **cfg.learned_embed_params.__dict__,
-                    **dict([(key, value) for key, value in vars(args).items() if key in vars(LearnedEmbedParams()).keys()])
-                })
-
+                if 'embed_model_config' not in cfg.__dict__:
+                    cfg.embed_model_config = LearnEmbedConfig()
+                else:
+                    cfg.embed_model_config = LearnEmbedConfig(**{
+                        **cfg.embed_model_config.__dict__,
+                        **dict([(key, value) for key, value in vars(args).items() if key in vars(LearnEmbedConfig()).keys()])
+                    })
+                if 'learned_embed_params' not in cfg.__dict__:
+                    cfg.learned_embed_params = LearnedEmbedParams()
+                else:
+                    cfg.learned_embed_params = LearnedEmbedParams(**{
+                        **cfg.learned_embed_params.__dict__,
+                        **dict([(key, value) for key, value in vars(args).items() if key in vars(LearnedEmbedParams()).keys()])
+                    })
+                cfg = SimpleNamespace(**{**SyntheticOpeTrialConfig(name=None).__dict__, **cfg.__dict__})
                 clsdict['main'](self, cfg)
             setattr(cls, 'main', ope_args_main)
 

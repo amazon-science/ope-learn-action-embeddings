@@ -39,7 +39,7 @@ class RealDatasetExperiment(AbstractExperiment):
     def instance_type(self) -> str:
         return "ml.c5.18xlarge"
 
-    def get_output(self, experiment_name: str):
+    def get_output(self, experiment_name: str, local_path: str = None):
         exclude = [
             # "Learned MIPS OneHot", 
             # "Learned MIPS FineTune",
@@ -48,8 +48,8 @@ class RealDatasetExperiment(AbstractExperiment):
             # "SwitchDR",
         ]
         for trial in self.trial_configs:
-            s3_path = self.get_s3_path(experiment_name, trial.name)
-            fig_dir = self.get_output_path(experiment_name, trial.name)
+            s3_path = self.get_s3_path(experiment_name, trial.name) if not local_path else f"{local_path}/{trial.name}"
+            fig_dir = self.get_output_path(experiment_name, trial.name) if not local_path else f"{local_path}/{trial.name}"
             Path(fig_dir).mkdir(parents=True, exist_ok=True)
             result_df = pd.read_csv(f"{s3_path}/result_df.csv")
             result_df.to_csv(f"{fig_dir}/result_df.csv")
