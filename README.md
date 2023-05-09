@@ -1,8 +1,8 @@
 # Learning Action Embeddings for Off-Policy Evaluation 
 
-This is the code repository that evaluates the proposed methods in the paper.
+This is the code repository that evaluates the proposed methods in the paper [Learning Action Embeddings for Off-Policy Evaluation](https://arxiv.org/abs/2305.03954).
 
-To get started, we recommend checking the [Example](Example.ipynb).ipynb](Example.ipynb) notebook as it clearly demonstrates benefits of the proposed method from Section 3 and implements everything in a few lines of code. To run the notebook, you only need `python 3` with standard machine learning libraries.
+To get started, we recommend checking the [Example.ipynb](Example.ipynb) notebook as it clearly demonstrates benefits of the proposed method from Section 3 and implements everything in a few lines of code. To run the notebook, you only need `python 3` with standard machine learning libraries.
 
 To run the other synthetic and real-world experiments in the paper, you might need the AWS account as everything is implemented to run with AWS SageMaker. Depending on the training instance used, the experiments may run for a couple of hours/days.
 
@@ -43,7 +43,7 @@ To execute locally: `python entry_point.py --config '{"job_class_name": "NValDat
 
 ### Figure 3 - High-bias, high-variance pre-defined embeddings
 Varying the number of unobserved dimensions:\
-`python cli.py run -c "NUnobsCatDimExperiment" -n "Figure3"`
+`python cli.py run -c "NUnobsCatDimExperiment" -n "Figure3"`\
 To execute locally: `python entry_point.py --config '{"job_class_name": "NUnobsCatDimJob", "s3_path": "results/Figure3"}'`
 
 ### Figure 4 - High-bias, low-variance pre-defined embeddings
@@ -99,3 +99,17 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 
 This project is licensed under the Apache-2.0 License.
 
+## Citation
+```
+@misc{ciefLearningActionEmbeddings2023,
+  title = {Learning {{Action Embeddings}} for {{Off-Policy Evaluation}}},
+  author = {Cief, Matej and Golebiowski, Jacek and Schmidt, Philipp and Abedjan, Ziawasch and Bekasov, Artur},
+  year = {2023},
+  month = may,
+  number = {arXiv:2305.03954},
+  eprint = {2305.03954},
+  primaryclass = {cs},
+  publisher = {{arXiv}},
+  doi = {10.48550/arXiv.2305.03954},
+}
+```
